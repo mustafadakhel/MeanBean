@@ -39,6 +39,14 @@ android {
     buildFeatures {
         compose true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
@@ -89,5 +97,11 @@ dependencies {
     implementation "androidx.room:room-ktx:$room"
     kapt "androidx.room:room-compiler:$room"
     /** room **/
+
+    /** mapper **/
+    def mapStruct = "1.4.2.Final"
+    implementation "org.mapstruct:mapstruct:$mapStruct"
+    kapt "org.mapstruct:mapstruct-processor:$mapStruct"
+    /** mapper **/
 
 }

@@ -1,6 +1,6 @@
-package com.martin.meanbean.data.remote.models
+package com.martin.meanbean.data.remote.dto
 
-data class DrinkModel(
+data class DrinkDto(
 	val name: String = "",
 	val desc: String = "",
 	val image: String = "",

@@ -1,6 +1,6 @@
-package com.martin.meanbean.data.remote.models
+package com.martin.meanbean.data.remote.dto
 
-data class BeanModel(
+data class BeanDto(
 	val name: String = "",
 	val image: String = "",
 	val desc: String = "",
