@@ -1,0 +1,14 @@
+{
+  "beans": [
+    {
+      "name": "Robusta",
+      "desc": "Robusta beans are typically cheaper to produce because the Robusta plant is easier to grow. They have a higher caffeine content and taste more bitter than Arabica beans. These beans are often used to make instant coffee and espresso blends.",
+      "image": "https://www.espresso-international.com/media/wysiwyg/kaffeewissen/Robusta-Bohnen.jpg"
+    },
+    {
+      "name": "Arabica",
+      "desc": "You may have seen bags of coffee labeled \"100 percent Arabica.\" Arabica is the most popular type of bean used for coffee. Arabica beans are considered higher quality than Robusta, and they're also more expensive. They result in coffee with a sweeter, less harsh taste.",
+      "image": "https://www.espresso-international.com/media/wysiwyg/kaffeewissen/Arabica-Bohnen.jpg"
+    }
+  ]
+}
