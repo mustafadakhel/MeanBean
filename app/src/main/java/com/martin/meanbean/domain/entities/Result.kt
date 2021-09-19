@@ -13,8 +13,11 @@ data class Result<T>(
 	val isLoading: Boolean = true,
 	val data: T? = null,
 	val isError: Boolean = false,
-	val errorType: ErrorType? = null,
+	val errorType: ErrorType? = null
 ) {
+
+	val hasData: Boolean get() = data != null
+
 	sealed class ErrorType {
 		data class NetworkError(val code: Int, val message: String) : ErrorType()
 		data class IOError(val throwable: Throwable) : ErrorType()
@@ -26,7 +29,7 @@ data class Result<T>(
 				isLoading = false,
 				data = null,
 				isError = true,
-				errorType = Result.ErrorType.NetworkError(exception.code(), exception.message())
+				errorType = ErrorType.NetworkError(exception.code(), exception.message())
 			)
 		}
 
@@ -35,7 +38,7 @@ data class Result<T>(
 				isLoading = false,
 				data = null,
 				isError = true,
-				errorType = Result.ErrorType.IOError(throwable)
+				errorType = ErrorType.IOError(throwable)
 			)
 		}
 
@@ -47,4 +50,11 @@ data class Result<T>(
 			return Result(isLoading = true, data = null)
 		}
 	}
+
+	fun <T> changeData(
+		isLoading: Boolean = this.isLoading,
+		data: T? = null,
+		isError: Boolean = this.isError,
+		errorType: ErrorType? = this.errorType
+	) = Result(isLoading, data, isError, errorType)
 }

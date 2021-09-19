@@ -11,11 +11,11 @@ class MeanBeanRepository @Inject constructor(
 	private val meanBeanApi: MeanBeanApi,
 	private val mapper: Mapper
 ) {
-	suspend fun getBeanTypes() = resultFlow {
+	fun getBeanTypes() = resultFlow {
 		meanBeanApi.getBeanTypes().beans.map(mapper::mapBean)
 	}
 
-	suspend fun getDrinkTypes() = resultFlow {
+	fun getDrinkTypes() = resultFlow {
 		meanBeanApi.getDrinkTypes().drinks.map(mapper::mapDrink)
 	}
 }
