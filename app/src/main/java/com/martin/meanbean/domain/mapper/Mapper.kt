@@ -12,8 +12,8 @@ class Mapper @Inject constructor(
 	private val beanMapper: BeanMapper,
 	private val drinkMapper: DrinkMapper
 ) {
-	fun mapBean(drink: BeanDto): BeanEntity {
-		return beanMapper.mapDtoToDomain(drink)
+	fun mapBean(bean: BeanDto): BeanEntity {
+		return beanMapper.mapDtoToDomain(bean)
 	}
 
 	fun mapDrink(drink: DrinkDto): DrinkEntity {
