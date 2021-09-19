@@ -5,7 +5,7 @@ import com.martin.meanbean.domain.entities.HomeEntity
 import com.martin.meanbean.domain.entities.Result
 import com.martin.meanbean.domain.entities.toHomeEntity
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.zip
+import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,7 +17,7 @@ class GetHomeFeedUseCase @Inject constructor(private val meanBeanRepository: Mea
 		val beanTypesFlow = meanBeanRepository.getBeanTypes()
 		val drinkTypesFlow = meanBeanRepository.getDrinkTypes()
 
-		return beanTypesFlow.zip(drinkTypesFlow) { beansResult, drinksResult ->
+		return beanTypesFlow.combine(drinkTypesFlow) { beansResult, drinksResult ->
 			mutableListOf<Result<HomeEntity>>().apply {
 				val beanEntity = beansResult.data?.toHomeEntity()
 				val drinksEntity = drinksResult.data?.toHomeEntity()
