@@ -1,12 +1,16 @@
 package com.martin.meanbean.domain.entities
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class DrinkEntity(
-	val name: String = "",
-	val description: String = "",
-	val image: String = "",
-	val ratio: String = "",
-	val cup: String = "",
-) {
+	var name: String = "",
+	var description: String = "",
+	var image: String = "",
+	var ratio: String = "",
+	var cup: String = "",
+) : Parcelable {
 	fun toHomeSubEntity(): HomeSubEntity {
 		return HomeSubEntity(
 			title = this.name,

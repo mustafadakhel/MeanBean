@@ -20,7 +20,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "COFFEE_API", "\"https://mean-bean.free.beeceptor.com/api/\"")
+        buildConfigField("String", "COFFEE_API", "\"https://demo6404036.mockable.io/api/\"")
     }
 
     buildTypes {
@@ -70,9 +70,10 @@ dependencies {
 
     /** hilt **/
     def hilt = rootProject.ext.hilt
-    def hiltJitPack = "1.0.0-alpha03"
+    def hiltJitPack = '1.0.0'
+    def hiltNavigationCompose = '1.0.0-alpha03'
     implementation "com.google.dagger:hilt-android:$hilt"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltJitPack"
+    implementation "androidx.hilt:hilt-navigation-compose:$hiltNavigationCompose"
     kapt "com.google.dagger:hilt-android-compiler:$hilt"
     kapt "androidx.hilt:hilt-compiler:$hiltJitPack"
     /** hilt **/
@@ -99,7 +100,7 @@ dependencies {
     /** room **/
 
     /** mapper **/
-    def mapStruct = "1.4.2.Final"
+    def mapStruct = '1.4.2.Final'
     implementation "org.mapstruct:mapstruct:$mapStruct"
     kapt "org.mapstruct:mapstruct-processor:$mapStruct"
     /** mapper **/

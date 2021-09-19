@@ -11,6 +11,7 @@ import javax.inject.Singleton
 
 @Singleton
 class GetHomeFeedUseCase @Inject constructor(private val meanBeanRepository: MeanBeanRepository) {
+
 	operator fun invoke(): Flow<MutableList<Result<HomeEntity>>> {
 
 		val beanTypesFlow = meanBeanRepository.getBeanTypes()
@@ -25,5 +26,6 @@ class GetHomeFeedUseCase @Inject constructor(private val meanBeanRepository: Mea
 			}
 		}
 	}
+
 }
 

@@ -5,8 +5,8 @@ import org.mapstruct.NullValueCheckStrategy
 import org.mapstruct.NullValueMappingStrategy
 import org.mapstruct.NullValuePropertyMappingStrategy
 
-interface BaseMapper<Dto, Domain> {
-	fun mapDtoToDomain(dto: Dto): Domain
+interface BaseMapper<Dto, Entity> {
+	fun dtoToEntity(dto: Dto): Entity
 }
 
 
