@@ -8,10 +8,13 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 
 
-inline fun <T> resultFlow(crossinline block: suspend () -> T) = flow<Data<T>> {
+inline fun <T> resultFlow(
+	crossinline network: suspend () -> T,
+	crossinline db: suspend () -> T? = { null }
+) = flow<Data<T>> {
 //Todo: return data from db in case of network failure
 	emitLoading()
-	emitSuccess(block())
+	emitSuccess(network())
 }.catchErrors()
 
 suspend fun <T> FlowCollector<Data<T>>.emitLoading() =
