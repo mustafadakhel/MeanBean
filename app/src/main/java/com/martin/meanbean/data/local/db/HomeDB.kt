@@ -7,6 +7,6 @@ import com.martin.meanbean.domain.entities.DrinkEntity
 
 @Database(entities = [BeanEntity::class, DrinkEntity::class], version = 1)
 abstract class HomeDB : RoomDatabase() {
-	abstract val homeDao: HomeDao
+	abstract val beansDao: BeansDao
+	abstract val drinksDao: DrinksDao
 }
-

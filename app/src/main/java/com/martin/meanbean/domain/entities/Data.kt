@@ -51,19 +51,19 @@ data class Data<T>(
 	}
 
 	companion object {
-		fun <T> networkError(exception: HttpException): Data<T> {
+		fun <T> networkError(exception: HttpException, altData: T? = null): Data<T> {
 			return Data(
 				isLoading = false,
-				data = null,
+				data = altData,
 				isError = true,
 				errorType = ErrorType.NetworkError(exception.code(), exception.message())
 			)
 		}
 
-		fun <T> ioError(throwable: Throwable): Data<T> {
+		fun <T> ioError(throwable: Throwable, altData: T? = null): Data<T> {
 			return Data(
 				isLoading = false,
-				data = null,
+				data = altData,
 				isError = true,
 				errorType = ErrorType.IOError(throwable)
 			)
@@ -75,6 +75,10 @@ data class Data<T>(
 
 		fun <T> loading(): Data<T> {
 			return Data()
+		}
+
+		fun <T> cached(cache: T?): Data<T> {
+			return Data(isLoading = true, data = cache)
 		}
 	}
 

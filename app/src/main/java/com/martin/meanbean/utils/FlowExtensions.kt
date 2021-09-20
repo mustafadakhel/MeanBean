@@ -1,36 +1,53 @@
 package com.martin.meanbean.utils
 
 import com.martin.meanbean.domain.entities.Data
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 
 
 inline fun <T> resultFlow(
 	crossinline network: suspend () -> T,
-	crossinline db: suspend () -> T? = { null }
+	crossinline cached: suspend () -> T? = { null },
+	crossinline updateCache: suspend (T) -> Unit = {}
 ) = flow<Data<T>> {
-//Todo: return data from db in case of network failure
 	emitLoading()
-	emitSuccess(network())
-}.catchErrors()
+	val cachedData = cached()
+	emitCache(cachedData)
+	runCatching {
+		network()
+	}.onFailure {
+		emitError(it, cachedData)
+	}.onSuccess {
+		emitSuccess(it)
+		updateCache(it)
+	}
+}
 
 suspend fun <T> FlowCollector<Data<T>>.emitLoading() =
 	emit(Data.loading())
 
+suspend fun <T> FlowCollector<Data<T>>.emitCache(cache: T?) =
+	emit(Data.cached(cache))
+
 suspend fun <T> FlowCollector<Data<T>>.emitSuccess(data: T) =
 	emit(Data.success(data))
 
-fun <T> Flow<Data<T>>.catchErrors() = catch {
-	if (it is HttpException)
-		emitNetworkError(it)
-	else emitIOError(it)
+suspend fun <T> FlowCollector<Data<T>>.emitError(
+	exception: Throwable,
+	cached: T? = null
+) {
+	if (exception is HttpException)
+		emitNetworkError(exception, cached)
+	else emitIOError(exception, cached)
 }
 
-suspend fun <T> FlowCollector<Data<T>>.emitNetworkError(exception: HttpException) =
-	emit(Data.networkError(exception))
+suspend fun <T> FlowCollector<Data<T>>.emitNetworkError(
+	exception: HttpException,
+	cached: T? = null
+) = emit(Data.networkError(exception, cached))
 
-suspend fun <T> FlowCollector<Data<T>>.emitIOError(throwable: Throwable) =
-	emit(Data.ioError(throwable))
+suspend fun <T> FlowCollector<Data<T>>.emitIOError(
+	throwable: Throwable,
+	cached: T? = null
+) = emit(Data.ioError(throwable, cached))

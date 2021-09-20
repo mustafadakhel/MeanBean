@@ -1,12 +1,8 @@
 package com.martin.meanbean.data.remote.dto
 
-import com.google.gson.annotations.Expose
-
 data class BeanDto(
-	@Expose
+	val id: Int = -1,
 	val name: String = "",
-	@Expose
 	val image: String = "",
-	@Expose
 	val desc: String = "",
 )
