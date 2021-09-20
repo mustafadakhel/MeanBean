@@ -74,7 +74,7 @@ data class Result<T>(
 		}
 
 		fun <T> loading(): Result<T> {
-			return Result(isLoading = true, data = null)
+			return Result()
 		}
 	}
 

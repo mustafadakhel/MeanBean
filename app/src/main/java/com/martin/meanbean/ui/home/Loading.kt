@@ -22,6 +22,6 @@ fun Loading() {
 		modifier = Modifier
 				.fillMaxWidth()
 				.padding(all = 16.dp)
-				.requiredSize(32.dp)
-	) { CircularProgressIndicator() }
+				.requiredSize(24.dp)
+	) { CircularProgressIndicator(strokeWidth = 3.dp) }
 }
