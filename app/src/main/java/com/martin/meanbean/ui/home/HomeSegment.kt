@@ -5,12 +5,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import com.martin.meanbean.domain.entities.HomeEntity
-import com.martin.meanbean.domain.entities.Result
+import com.martin.meanbean.domain.entities.Data
 
 @Composable
-fun HomeSegment(result: Result<HomeEntity>) {
+fun HomeSegment(data: Data<HomeEntity>) {
 	LazyRow {
-		items(result.data?.items ?: listOf()) {
+		items(data.data?.items ?: listOf()) {
 			Text(text = it.title)
 		}
 	}

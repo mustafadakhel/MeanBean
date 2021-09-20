@@ -3,14 +3,14 @@ package com.martin.meanbean.domain.entities
 import retrofit2.HttpException
 
 /**
-Result variations should not be mutually exclusive because:
-1. Result can have data and error at the same time (in case network failed and data was fetched
+Data variations should not be mutually exclusive because:
+1. Data can have data and error at the same time (in case network failed and data was fetched
 from the db)
-2. Result can be loading and have data at the same time (in case of a refresh or in case we
+2. Data can be loading and have data at the same time (in case of a refresh or in case we
 displayed data from db while updating it from the network)
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
-data class Result<T>(
+data class Data<T>(
 	val isLoading: Boolean = true,
 	val data: T? = null,
 	val isError: Boolean = false,
@@ -51,8 +51,8 @@ data class Result<T>(
 	}
 
 	companion object {
-		fun <T> networkError(exception: HttpException): Result<T> {
-			return Result(
+		fun <T> networkError(exception: HttpException): Data<T> {
+			return Data(
 				isLoading = false,
 				data = null,
 				isError = true,
@@ -60,8 +60,8 @@ data class Result<T>(
 			)
 		}
 
-		fun <T> ioError(throwable: Throwable): Result<T> {
-			return Result(
+		fun <T> ioError(throwable: Throwable): Data<T> {
+			return Data(
 				isLoading = false,
 				data = null,
 				isError = true,
@@ -69,12 +69,12 @@ data class Result<T>(
 			)
 		}
 
-		fun <T> success(data: T): Result<T> {
-			return Result(isLoading = false, data = data)
+		fun <T> success(data: T): Data<T> {
+			return Data(isLoading = false, data = data)
 		}
 
-		fun <T> loading(): Result<T> {
-			return Result()
+		fun <T> loading(): Data<T> {
+			return Data()
 		}
 	}
 
@@ -83,5 +83,5 @@ data class Result<T>(
 		data: T? = null,
 		isError: Boolean = this.isError,
 		errorType: ErrorType? = this.errorType
-	) = Result(isLoading, data, isError, errorType)
+	) = Data(isLoading, data, isError, errorType)
 }
