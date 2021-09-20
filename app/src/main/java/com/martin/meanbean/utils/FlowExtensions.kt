@@ -7,12 +7,12 @@ import retrofit2.HttpException
 
 
 inline fun <T> resultFlow(
-	crossinline network: suspend () -> T,
-	crossinline cached: suspend () -> T? = { null },
-	crossinline updateCache: suspend (T) -> Unit = {}
+	crossinline network: (suspend () -> T),
+	noinline cached: (suspend () -> T?)? = null,
+	noinline updateCache: (suspend (T) -> Unit)? = null
 ) = flow<Data<T>> {
 	emitLoading()
-	val cachedData = cached()
+	val cachedData = cached?.invoke()
 	emitCache(cachedData)
 	runCatching {
 		network()
@@ -20,7 +20,7 @@ inline fun <T> resultFlow(
 		emitError(it, cachedData)
 	}.onSuccess {
 		emitSuccess(it)
-		updateCache(it)
+		updateCache?.invoke(it)
 	}
 }
 
