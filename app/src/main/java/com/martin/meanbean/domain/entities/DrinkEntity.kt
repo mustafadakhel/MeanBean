@@ -28,5 +28,7 @@ data class DrinkEntity(
 fun List<DrinkEntity>.toHomeEntity(): HomeEntity {
 	return HomeEntity(
 		title = "Drinks",
-		items = map { it.toHomeSubEntity() })
+		items = map { it.toHomeSubEntity() },
+		type = HomeEntity.HomeEntityType.Drinks
+	)
 }

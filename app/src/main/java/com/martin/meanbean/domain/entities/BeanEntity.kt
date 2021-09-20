@@ -26,5 +26,7 @@ data class BeanEntity(
 fun List<BeanEntity>.toHomeEntity(): HomeEntity {
 	return HomeEntity(
 		title = "Beans",
-		items = map { it.toHomeSubEntity() })
+		items = map { it.toHomeSubEntity() },
+		type = HomeEntity.HomeEntityType.Beans
+	)
 }
