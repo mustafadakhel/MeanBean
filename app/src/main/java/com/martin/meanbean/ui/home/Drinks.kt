@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,7 +19,11 @@ fun Drinks(homeEntity: HomeEntity) {
     BoxWithConstraints(modifier = Modifier.padding(16.dp)) {
         val width = maxWidth
         Column {
-            Text(text = homeEntity.title,modifier=Modifier.padding(bottom = 4.dp), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(
+                    text = homeEntity.title,
+                    modifier=Modifier.padding(bottom = 4.dp),
+                    style = MaterialTheme.typography.h6
+            )
             for (i: Int in 0 until rowCount)
                 LazyRow {
                     for (j: Int in i + ((3 - 1) * i) until (i + ((3 - 1) * i) + 3))
