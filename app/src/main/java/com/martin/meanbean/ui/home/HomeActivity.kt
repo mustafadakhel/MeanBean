@@ -3,31 +3,26 @@ package com.martin.meanbean.ui.home
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import com.martin.meanbean.ui.theme.DarkColors
-import com.martin.meanbean.ui.theme.LightColors
-import com.martin.meanbean.ui.theme.Typography
+import com.martin.meanbean.ui.theme.AppTheme
+import com.martin.meanbean.ui.theme.MeanBeanTheme
+import com.martin.meanbean.utils.PrefsManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
+	@Inject
+	lateinit var prefsManager: PrefsManager
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContent {
-			MeanBeanTheme {
-				App()
+			MeanBeanTheme(initialTheme = prefsManager.getAppTheme()) {
+				App(isDarkTheme = isDarkTheme()) {
+					changeTheme(it)
+					prefsManager.setAppTheme(if (it) AppTheme.DarkTheme else AppTheme.LightTheme)
+				}
 			}
 		}
 	}
-}
-
-@Composable
-fun MeanBeanTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-	MaterialTheme(
-		colors = if (darkTheme) DarkColors else LightColors,
-		typography = Typography,
-		content = content
-	)
 }

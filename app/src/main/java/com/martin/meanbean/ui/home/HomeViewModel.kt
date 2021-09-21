@@ -9,5 +9,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
 	getHomeFeedUseCase: GetHomeFeedUseCase,
 ) : ViewModel() {
+	var darkTheme: Boolean = true
 	val homeFeed = getHomeFeedUseCase()
+	fun changeTheme() {
+		darkTheme = darkTheme.not()
+	}
 }

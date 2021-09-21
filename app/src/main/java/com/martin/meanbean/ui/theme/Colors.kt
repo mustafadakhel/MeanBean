@@ -51,7 +51,13 @@ val LightColors = lightColors(
 	onError = Neutral0,
 )
 
-sealed class AppTheme {
-	object DarkTheme : AppTheme()
-	object LightTheme : AppTheme()
+sealed class AppTheme(val value: Int) {
+
+	object DarkTheme : AppTheme(1)
+	object LightTheme : AppTheme(2)
+	companion object {
+		fun from(value: Int): AppTheme {
+			return if (value == 1) DarkTheme else LightTheme
+		}
+	}
 }
