@@ -7,7 +7,7 @@ import com.martin.meanbean.domain.entities.HomeEntity
 @Composable
 fun HomeSegment(data: Data<HomeEntity>) {
 	if (data.data?.type is HomeEntity.HomeEntityType.Beans)
-		Beans(data.data.items)
+		Beans(data.data)
 	else if (data.data?.type is HomeEntity.HomeEntityType.Drinks)
-		Drinks(data.data.items)
+		Drinks(data.data)
 }
