@@ -11,6 +11,10 @@ android {
 
     compileSdk 31
 
+    buildFeatures {
+        compose true
+    }
+
     defaultConfig {
         applicationId "com.martin.meanbean"
         minSdk 21
@@ -36,16 +40,16 @@ android {
         }
     }
 
-    buildFeatures {
-        compose true
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.1.0-alpha06'
     }
 }
 
@@ -59,7 +63,7 @@ dependencies {
     testImplementation "junit:junit:$junit"
     androidTestImplementation "androidx.test.ext:junit:$junitExt"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCore"
-    implementation "androidx.preference:preference:$prefs"
+    implementation "androidx.preference:preference-ktx:$prefs"
     /** common **/
 
 
@@ -72,28 +76,23 @@ dependencies {
 
     /** hilt **/
     def hilt = rootProject.ext.hilt
-    def hiltJitPack = '1.0.0'
-    def hiltNavigationCompose = '1.0.0-alpha03'
+    def hiltJitPack = '1.0.0-alpha03'
     implementation "com.google.dagger:hilt-android:$hilt"
-    implementation "androidx.hilt:hilt-navigation-compose:$hiltNavigationCompose"
+    implementation "androidx.hilt:hilt-navigation-compose:$hiltJitPack"
     kapt "com.google.dagger:hilt-android-compiler:$hilt"
     kapt "androidx.hilt:hilt-compiler:$hiltJitPack"
     /** hilt **/
 
 
     /** compose **/
-    def compose = "1.0.2"
-    def activityCompose = "1.3.1"
-    def pagingCompose = "1.0.0-alpha12"
-    def navigationCompose = "2.4.0-alpha09"
+    def compose = "1.1.0-alpha06"
+    def activityCompose = "1.4.0-rc01"
+    def navigationCompose = "2.4.0-alpha10"
     def coil = "1.3.2"
-    def tooling = "1.0.2"
     implementation "androidx.compose.material:material:$compose"
     implementation "androidx.activity:activity-compose:$activityCompose"
-    implementation "androidx.paging:paging-compose:$pagingCompose"
     implementation "androidx.navigation:navigation-compose:$navigationCompose"
     implementation "io.coil-kt:coil-compose:$coil"
-    implementation "androidx.compose.ui:ui-tooling:$tooling"
     /** compose **/
 
 
@@ -106,7 +105,7 @@ dependencies {
     /** room **/
 
     /** mapper **/
-    def mapStruct = '1.4.2.Final'
+    def mapStruct = '1.5.0.Beta1'
     implementation "org.mapstruct:mapstruct:$mapStruct"
     kapt "org.mapstruct:mapstruct-processor:$mapStruct"
     /** mapper **/

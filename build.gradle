@@ -2,9 +2,9 @@
 buildscript {
 
     ext {
-        gradleTools = "7.0.2"
-        kotlin = "1.4.32"
-        hilt = "2.38.1"
+        gradleTools = "7.0.3"
+        kotlin = "1.5.31"
+        hilt = '2.39.1'
     }
 
     repositories {
@@ -15,6 +15,13 @@ buildscript {
         classpath "com.android.tools.build:gradle:$gradleTools"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
     }
 }
 

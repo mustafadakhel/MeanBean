@@ -1,4 +1,4 @@
-package com.martin.meanbean.ui.home
+package com.martin.meanbean.ui.common
 
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.Text

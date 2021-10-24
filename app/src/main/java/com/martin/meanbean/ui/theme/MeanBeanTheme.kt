@@ -4,7 +4,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 
 @Composable
-fun MeanBeanTheme(initialTheme: AppTheme, content: @Composable() (ThemeScope.() -> Unit)) {
+fun MeanBeanTheme(initialTheme: AppTheme, content: @Composable (ThemeScope.() -> Unit)) {
 	var themeState by remember { mutableStateOf(value = initialTheme) }
 	MaterialTheme(
 		colors = if (themeState is AppTheme.DarkTheme) DarkColors else LightColors,

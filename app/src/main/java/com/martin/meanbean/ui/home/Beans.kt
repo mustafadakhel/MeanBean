@@ -9,15 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.martin.meanbean.domain.entities.HomeEntity
+import com.martin.meanbean.domain.entities.HomeSubEntity
 
 @Composable
-fun Beans(homeBeans: HomeEntity) {
-    Column(Modifier.padding(16.dp)) {
-        Text(
-                text = homeBeans.title,
-                modifier = Modifier.padding(bottom = 12.dp),
-                style = MaterialTheme.typography.h6
-        )
-        LazyRow { beanItems(homeBeans.items) }
-    }
+fun Beans(homeBeans: HomeEntity, beanItemClicked: (HomeSubEntity) -> Unit) {
+	Column(Modifier.padding(16.dp)) {
+		Text(
+			text = homeBeans.title,
+			modifier = Modifier.padding(bottom = 12.dp),
+			style = MaterialTheme.typography.h6
+		)
+		LazyRow { beanItems(homeBeans.items, onItemClicked = beanItemClicked) }
+	}
 }

@@ -1,4 +1,4 @@
-package com.martin.meanbean.ui.home
+package com.martin.meanbean.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -9,9 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.martin.meanbean.domain.entities.HomeSubEntity
+import com.martin.meanbean.ui.bean_details.BeanPage
+import com.martin.meanbean.ui.home.HomePage
 import com.martin.meanbean.utils.NavigationRoutes
 
 @Composable
@@ -19,9 +24,19 @@ fun App(isDarkTheme: Boolean, themeChanged: (Boolean) -> Unit) {
 	Scaffold(topBar = {
 		AppBar(isDarkTheme, themeChanged)
 	}) {
-		NavHost(rememberNavController(), NavigationRoutes.home) {
-			composable(NavigationRoutes.home) {
-				HomePage()
+		val navController = rememberNavController()
+		NavHost(navController, NavigationRoutes.home) {
+			composable(NavigationRoutes.home, arguments = listOf(navArgument("dummy") {
+				defaultValue = true
+				type = NavType.BoolType
+			})) {
+				HomePage(navController = navController)
+			}
+			composable(NavigationRoutes.bean) {
+				HomeSubEntity.fromArgs(navController.previousBackStackEntry?.arguments)
+						?.let { subEntity ->
+							BeanPage(subEntity)
+						}
 			}
 		}
 	}

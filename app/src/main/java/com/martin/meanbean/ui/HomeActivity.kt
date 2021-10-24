@@ -1,4 +1,4 @@
-package com.martin.meanbean.ui.home
+package com.martin.meanbean.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
