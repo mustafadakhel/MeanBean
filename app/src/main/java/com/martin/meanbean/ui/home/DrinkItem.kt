@@ -14,9 +14,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.martin.meanbean.domain.entities.HomeSubEntity
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun DrinkItem(homeDrink: HomeSubEntity, width: Dp) {
 	Card(
