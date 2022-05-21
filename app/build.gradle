@@ -87,7 +87,7 @@ dependencies {
     /** compose **/
     def compose = "1.1.0-alpha06"
     def activityCompose = "1.4.0-rc01"
-    def navigationCompose = "2.4.0-alpha10"
+    def navigationCompose = "2.5.0-rc01"
     def coil = "1.3.2"
     implementation "androidx.compose.material:material:$compose"
     implementation "androidx.activity:activity-compose:$activityCompose"

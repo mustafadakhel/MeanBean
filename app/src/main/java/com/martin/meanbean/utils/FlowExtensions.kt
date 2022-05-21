@@ -1,53 +1,32 @@
 package com.martin.meanbean.utils
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.flowWithLifecycle
 import com.martin.meanbean.domain.entities.Wrap
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 
 
-inline fun <T> wrapFlow(
-	crossinline network: (suspend () -> T),
-	noinline cached: (suspend () -> T?)? = null,
-	noinline updateCache: (suspend (T) -> Unit)? = null
-) = flow<Wrap<T>> {
-	emitLoading()
-	val cachedData = cached?.invoke()
-	emitCache(cachedData)
-	runCatching {
-		network()
-	}.onFailure {
-		emitError(it, cachedData)
-	}.onSuccess {
-		emitSuccess(it)
-		updateCache?.invoke(it)
+
+@Composable
+fun <T> Flow<T>.asLifecycleAwareState(lifecycleOwner: LifecycleOwner, initialState: T? = null) =
+	lifecycleAwareState(lifecycleOwner, this, initialState)
+
+@Composable
+fun <T> lifecycleAwareState(
+	lifecycleOwner: LifecycleOwner,
+	flow: Flow<T>,
+	initialState: T
+): State<T> {
+	val lifecycleAwareStateFlow = remember(flow, lifecycleOwner) {
+		flow.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
 	}
+	return lifecycleAwareStateFlow.collectAsState(initialState)
 }
-
-suspend fun <T> FlowCollector<Wrap<T>>.emitLoading() =
-	emit(Wrap.loading())
-
-suspend fun <T> FlowCollector<Wrap<T>>.emitCache(cache: T?) =
-	emit(Wrap.cached(cache))
-
-suspend fun <T> FlowCollector<Wrap<T>>.emitSuccess(data: T) =
-	emit(Wrap.success(data))
-
-suspend fun <T> FlowCollector<Wrap<T>>.emitError(
-	exception: Throwable,
-	cached: T? = null
-) {
-	if (exception is HttpException)
-		emitNetworkError(exception, cached)
-	else emitIOError(exception, cached)
-}
-
-suspend fun <T> FlowCollector<Wrap<T>>.emitNetworkError(
-	exception: HttpException,
-	cached: T? = null
-) = emit(Wrap.networkError(exception, cached))
-
-suspend fun <T> FlowCollector<Wrap<T>>.emitIOError(
-	throwable: Throwable,
-	cached: T? = null
-) = emit(Wrap.ioError(throwable, cached))

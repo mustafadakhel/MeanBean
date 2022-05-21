@@ -16,6 +16,7 @@ data class BeanEntity(
 ) : Parcelable {
 	fun toHomeSubEntity(): HomeSubEntity {
 		return HomeSubEntity(
+			id = this.id,
 			title = this.name,
 			image = this.image
 		)

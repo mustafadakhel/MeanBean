@@ -5,10 +5,4 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class HomeSubEntity(val title: String, val image: String) : Parcelable {
-	companion object {
-		fun fromArgs(arguments: Bundle?): HomeSubEntity? {
-			return arguments?.getParcelable("bean")
-		}
-	}
-}
+data class HomeSubEntity(val id: Int, val title: String, val image: String) : Parcelable

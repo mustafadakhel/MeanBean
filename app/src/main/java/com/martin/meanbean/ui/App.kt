@@ -6,49 +6,83 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.martin.meanbean.domain.entities.HomeSubEntity
 import com.martin.meanbean.ui.bean_details.BeanPage
 import com.martin.meanbean.ui.home.HomePage
-import com.martin.meanbean.ui.home.HomeViewModel
-import com.martin.meanbean.utils.NavigationRoutes
+import com.martin.meanbean.utils.NavigationDestinations
+import com.martin.meanbean.utils.Navigator
+import com.martin.meanbean.utils.asLifecycleAwareState
 
-val dummyArgs = listOf(navArgument("dummy") {
-	defaultValue = true
-	type = NavType.BoolType
-})
+const val BeanIdArgName = "beanId"
+const val BeanTitleArgName = "beanTitle"
+
+val BeanIdArg = navArgument(BeanIdArgName) {
+	type = NavType.IntType
+	nullable = false
+}
+
+val BeanTitleArg = navArgument(BeanTitleArgName) {
+	defaultValue = "Bean"
+	type = NavType.StringType
+}
 
 @Composable
 fun App(
 	isDarkTheme: Boolean,
-	homeViewModel: HomeViewModel = hiltViewModel(),
+	navigator: Navigator,
 	themeChanged: (Boolean) -> Unit
 ) {
 	Scaffold(topBar = {
 		AppBar(isDarkTheme, themeChanged)
 	}) {
 		val navController = rememberNavController()
-		NavHost(navController, NavigationRoutes.home) {
-			composable(NavigationRoutes.home, arguments = dummyArgs) {
-				label = "Mean Bean"
-				HomePage(navController = navController, homeViewModel)
-			}
-			composable(NavigationRoutes.bean) {
-				HomeSubEntity.fromArgs(navController.previousBackStackEntry?.arguments)
-						?.let { subEntity ->
-							label = subEntity.title
-							BeanPage(subEntity)
-						}
+		val lifecycleOwner = LocalLifecycleOwner.current
+		val navigatorState by navigator.navActions.asLifecycleAwareState(lifecycleOwner)
+		LaunchedEffect(navigatorState) {
+			navigatorState?.let {
+				it.args.forEach { arg ->
+					navController.currentBackStackEntry?.arguments?.putParcelable(
+						arg.key,
+						arg.value
+					)
+				}
+				navController.navigate(it.destination, it.navOptions)
 			}
 		}
+
+		NavHost(navController, NavigationDestinations.homePage) {
+			homePage(navController)
+			beanPage()
+		}
+	}
+}
+
+private fun NavGraphBuilder.homePage(navController: NavHostController) = composable(
+	route = NavigationDestinations.homePage
+) {
+	label = "Mean Bean"
+	HomePage(navController = navController)
+}
+
+private fun NavGraphBuilder.beanPage() {
+	composable(
+		route = NavigationDestinations.beanPage,
+		arguments = listOf(BeanIdArg, BeanTitleArg)
+	) {
+		label = it.arguments?.getString(BeanTitleArgName)
+		BeanPage(it.arguments?.getInt(BeanIdArgName))
 	}
 }
 

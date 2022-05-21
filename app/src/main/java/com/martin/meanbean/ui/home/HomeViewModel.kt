@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.martin.meanbean.domain.entities.HomeEntity
 import com.martin.meanbean.domain.use_cases.GetHomeFeedUseCase
-import com.martin.meanbean.ui.common.ControllableTimeMachine
-import com.martin.meanbean.ui.common.TimeMachine
-import com.martin.meanbean.ui.common.asTimeMachine
-import com.martin.meanbean.ui.common.controllableTimeMachine
+import com.martin.meanbean.utils.ControllableTimeMachine
+import com.martin.meanbean.utils.TimeMachine
+import com.martin.meanbean.utils.asTimeMachine
+import com.martin.meanbean.utils.controllableTimeMachine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,8 +27,8 @@ class HomeViewModel @Inject constructor(
 	private val _homeTimeMachine: ControllableTimeMachine<HomeEra> =
 		controllableTimeMachine(HomeEra.Loading)
 	val homeTimeMachine: TimeMachine<HomeEra> = _homeTimeMachine.asTimeMachine()
-	private val _wrappedHomeListFlow = MutableStateFlow<List<HomeEntity>>(listOf())
-	val HomeListFlow = _wrappedHomeListFlow.asStateFlow()
+	private val _homeListFlow = MutableStateFlow<List<HomeEntity>>(listOf())
+	val homeListFlow = _homeListFlow.asStateFlow()
 
 	init {
 		fetch()
@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
 		runCatching {
 			_homeTimeMachine.newDestination(HomeEra.Loading)
 			getHomeFeedUseCase().also {
-				_wrappedHomeListFlow.emit(it)
+				_homeListFlow.emit(it)
 			}
 		}.onSuccess {
 			_homeTimeMachine.newDestination(HomeEra.Loaded)

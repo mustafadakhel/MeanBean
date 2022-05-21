@@ -19,7 +19,8 @@ data class DrinkEntity(
 	fun toHomeSubEntity(): HomeSubEntity {
 		return HomeSubEntity(
 			title = this.name,
-			image = this.image
+			image = this.image,
+			id = id
 		)
 	}
 }

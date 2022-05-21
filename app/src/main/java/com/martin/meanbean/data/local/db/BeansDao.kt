@@ -10,5 +10,5 @@ interface BeansDao : BaseDao<BeanEntity> {
 	suspend fun getBeans(): List<BeanEntity>
 
 	@Query("SELECT * FROM BEAN WHERE id = :id")
-	suspend fun getBean(id: Int): BeanEntity
+	suspend fun getBean(id: Int): BeanEntity?
 }

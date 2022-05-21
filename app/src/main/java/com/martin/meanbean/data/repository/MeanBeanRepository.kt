@@ -39,5 +39,7 @@ class MeanBeanRepository @Inject constructor(
 		add(beanEntity)
 		add(drinksEntity)
 	}
+
+	suspend fun getBean(beanId: Int) = beansDao.getBean(beanId)
 }
 
