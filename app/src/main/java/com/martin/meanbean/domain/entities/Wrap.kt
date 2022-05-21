@@ -3,14 +3,14 @@ package com.martin.meanbean.domain.entities
 import retrofit2.HttpException
 
 /**
-Data variations should not be mutually exclusive because:
-1. Data can have data and error at the same time (in case network failed and data was fetched
+Wrap variations should not be mutually exclusive because:
+1. Wrap can have data and error at the same time (in case network failed and data was fetched
 from the db)
-2. Data can be loading and have data at the same time (in case of a refresh or in case we
+2. Wrap can be loading and have data at the same time (in case of a refresh or in case we
 displayed data from db while updating it from the network)
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
-data class Data<T>(
+data class Wrap<T>(
 	val isLoading: Boolean = true,
 	val data: T? = null,
 	val isError: Boolean = false,
@@ -51,8 +51,8 @@ data class Data<T>(
 	}
 
 	companion object {
-		fun <T> networkError(exception: HttpException, altData: T? = null): Data<T> {
-			return Data(
+		fun <T> networkError(exception: HttpException, altData: T? = null): Wrap<T> {
+			return Wrap(
 				isLoading = false,
 				data = altData,
 				isError = true,
@@ -60,8 +60,8 @@ data class Data<T>(
 			)
 		}
 
-		fun <T> ioError(throwable: Throwable, altData: T? = null): Data<T> {
-			return Data(
+		fun <T> ioError(throwable: Throwable, altData: T? = null): Wrap<T> {
+			return Wrap(
 				isLoading = false,
 				data = altData,
 				isError = true,
@@ -69,23 +69,16 @@ data class Data<T>(
 			)
 		}
 
-		fun <T> success(data: T): Data<T> {
-			return Data(isLoading = false, data = data)
+		fun <T> success(data: T): Wrap<T> {
+			return Wrap(isLoading = false, data = data)
 		}
 
-		fun <T> loading(): Data<T> {
-			return Data()
+		fun <T> loading(): Wrap<T> {
+			return Wrap()
 		}
 
-		fun <T> cached(cache: T?): Data<T> {
-			return Data(isLoading = true, data = cache)
+		fun <T> cached(cache: T?): Wrap<T> {
+			return Wrap(isLoading = true, data = cache)
 		}
 	}
-
-	fun <T> changeData(
-		isLoading: Boolean = this.isLoading,
-		data: T? = null,
-		isError: Boolean = this.isError,
-		errorType: ErrorType? = this.errorType
-	) = Data(isLoading, data, isError, errorType)
 }

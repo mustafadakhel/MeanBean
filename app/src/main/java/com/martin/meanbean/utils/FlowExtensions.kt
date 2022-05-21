@@ -1,16 +1,16 @@
 package com.martin.meanbean.utils
 
-import com.martin.meanbean.domain.entities.Data
+import com.martin.meanbean.domain.entities.Wrap
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 
 
-inline fun <T> resultFlow(
+inline fun <T> wrapFlow(
 	crossinline network: (suspend () -> T),
 	noinline cached: (suspend () -> T?)? = null,
 	noinline updateCache: (suspend (T) -> Unit)? = null
-) = flow<Data<T>> {
+) = flow<Wrap<T>> {
 	emitLoading()
 	val cachedData = cached?.invoke()
 	emitCache(cachedData)
@@ -24,16 +24,16 @@ inline fun <T> resultFlow(
 	}
 }
 
-suspend fun <T> FlowCollector<Data<T>>.emitLoading() =
-	emit(Data.loading())
+suspend fun <T> FlowCollector<Wrap<T>>.emitLoading() =
+	emit(Wrap.loading())
 
-suspend fun <T> FlowCollector<Data<T>>.emitCache(cache: T?) =
-	emit(Data.cached(cache))
+suspend fun <T> FlowCollector<Wrap<T>>.emitCache(cache: T?) =
+	emit(Wrap.cached(cache))
 
-suspend fun <T> FlowCollector<Data<T>>.emitSuccess(data: T) =
-	emit(Data.success(data))
+suspend fun <T> FlowCollector<Wrap<T>>.emitSuccess(data: T) =
+	emit(Wrap.success(data))
 
-suspend fun <T> FlowCollector<Data<T>>.emitError(
+suspend fun <T> FlowCollector<Wrap<T>>.emitError(
 	exception: Throwable,
 	cached: T? = null
 ) {
@@ -42,12 +42,12 @@ suspend fun <T> FlowCollector<Data<T>>.emitError(
 	else emitIOError(exception, cached)
 }
 
-suspend fun <T> FlowCollector<Data<T>>.emitNetworkError(
+suspend fun <T> FlowCollector<Wrap<T>>.emitNetworkError(
 	exception: HttpException,
 	cached: T? = null
-) = emit(Data.networkError(exception, cached))
+) = emit(Wrap.networkError(exception, cached))
 
-suspend fun <T> FlowCollector<Data<T>>.emitIOError(
+suspend fun <T> FlowCollector<Wrap<T>>.emitIOError(
 	throwable: Throwable,
 	cached: T? = null
-) = emit(Data.ioError(throwable, cached))
+) = emit(Wrap.ioError(throwable, cached))
