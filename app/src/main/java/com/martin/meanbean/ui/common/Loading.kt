@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,5 +24,5 @@ fun Loading() {
 				.fillMaxWidth()
 				.padding(all = 16.dp)
 				.requiredSize(24.dp)
-	) { CircularProgressIndicator(strokeWidth = 3.dp) }
+	) { CircularProgressIndicator(strokeWidth = 3.dp, color = MaterialTheme.colors.onBackground) }
 }

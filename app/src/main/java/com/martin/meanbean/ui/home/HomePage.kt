@@ -1,11 +1,13 @@
 package com.martin.meanbean.ui.home
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
-import com.martin.meanbean.domain.entities.Wrap
-import com.martin.meanbean.domain.entities.HomeEntity
 
 @Composable
-fun HomePage(navController: NavController, feed: Wrap<List<HomeEntity>>) {
-	HomeList(navController, feed)
+fun HomePage(navController: NavController, homeViewModel: HomeViewModel) {
+	val feed by homeViewModel.HomeListFlow.collectAsState(initial = listOf())
+	val eras by homeViewModel.homeTimeMachine.flow().collectAsState()
+	HomeList(navController, feed, eras)
 }

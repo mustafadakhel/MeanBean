@@ -3,14 +3,13 @@ package com.martin.meanbean.ui.common
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import com.martin.meanbean.domain.entities.Wrap
 
 @Composable
-fun Error(type: Wrap.ErrorType?) {
-	Text(type.toString())
+fun Error(throwable: Throwable?) {
+	Text(throwable?.message ?: "Something went wrong")
 }
 
-fun LazyListScope.errorItem(errorType: Wrap.ErrorType?) {
+fun LazyListScope.errorItem(errorType: Throwable?) {
 	if (errorType != null)
 		item {
 			Error(errorType)

@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -18,7 +16,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.martin.meanbean.domain.entities.HomeSubEntity
-import com.martin.meanbean.domain.entities.Wrap
 import com.martin.meanbean.ui.bean_details.BeanPage
 import com.martin.meanbean.ui.home.HomePage
 import com.martin.meanbean.ui.home.HomeViewModel
@@ -38,12 +35,11 @@ fun App(
 	Scaffold(topBar = {
 		AppBar(isDarkTheme, themeChanged)
 	}) {
-		val feed by homeViewModel.wrappedHomeListFlow.collectAsState(initial = Wrap.loading())
 		val navController = rememberNavController()
 		NavHost(navController, NavigationRoutes.home) {
 			composable(NavigationRoutes.home, arguments = dummyArgs) {
 				label = "Mean Bean"
-				HomePage(navController = navController, feed)
+				HomePage(navController = navController, homeViewModel)
 			}
 			composable(NavigationRoutes.bean) {
 				HomeSubEntity.fromArgs(navController.previousBackStackEntry?.arguments)
