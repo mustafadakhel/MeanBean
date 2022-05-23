@@ -2,7 +2,7 @@ package com.martin.meanbean.ui.bean_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.martin.meanbean.domain.entities.BeanEntity
+import com.martin.meanbean.domain.models.Bean
 import com.martin.meanbean.domain.use_cases.GetBeanUseCase
 import com.martin.meanbean.utils.ControllableTimeMachine
 import com.martin.meanbean.utils.TimeMachine
@@ -19,33 +19,28 @@ class BeanPageViewModel @Inject constructor(
 	private val getBeanUseCase: GetBeanUseCase,
 ) : ViewModel() {
 
-	sealed interface BeanPageEra : TimeMachine.Era {
-		object Loading : BeanPageEra
-		object Loaded : BeanPageEra
-		data class Failure(val throwable: Throwable) : BeanPageEra
+	sealed interface BeanPageEras : TimeMachine.Eras {
+		object Loading : BeanPageEras
+		object Loaded : BeanPageEras
+		data class Failure(val throwable: Throwable) : BeanPageEras
 	}
 
-	private val _beanTimeMachine: ControllableTimeMachine<BeanPageEra> =
-		controllableTimeMachine(BeanPageEra.Loading)
-	val beanTimeMachine: TimeMachine<BeanPageEra> = _beanTimeMachine.asTimeMachine()
-	private val _beanListFlow = MutableStateFlow<BeanEntity?>(null)
+	private val _beanTimeMachine: ControllableTimeMachine<BeanPageEras> =
+		controllableTimeMachine(BeanPageEras.Loading)
+	val beanTimeMachine: TimeMachine<BeanPageEras> = _beanTimeMachine.asTimeMachine()
+	private val _beanListFlow = MutableStateFlow<Bean?>(null)
 	val beanFlow = _beanListFlow.asStateFlow()
 
 	fun fetch(beanId: Int?) = viewModelScope.launch {
 		runCatching {
-			_beanTimeMachine.newDestination(BeanPageEra.Loading)
-			beanId?.let {
-				getBeanUseCase(beanId)?.also {
-					_beanListFlow.emit(it)
-				} ?: throw CouldNotFindBean
-			} ?: throw NullBeanId
+			_beanTimeMachine.newDestination(BeanPageEras.Loading)
+			getBeanUseCase(beanId).also {
+				_beanListFlow.emit(it)
+			}
 		}.onSuccess {
-			_beanTimeMachine.newDestination(BeanPageEra.Loaded)
+			_beanTimeMachine.newDestination(BeanPageEras.Loaded)
 		}.onFailure {
-			_beanTimeMachine.newDestination(BeanPageEra.Failure(it))
+			_beanTimeMachine.newDestination(BeanPageEras.Failure(it))
 		}
 	}
 }
-
-object NullBeanId : Throwable("a null bean id was provided")
-object CouldNotFindBean : Throwable("Couldn't find bean info")

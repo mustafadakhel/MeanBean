@@ -6,15 +6,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.martin.meanbean.domain.entities.HomeEntity
+import com.martin.meanbean.domain.models.HomeSegment
 import com.martin.meanbean.ui.common.errorItem
 import com.martin.meanbean.ui.common.loadingItem
 
 @Composable
-fun HomeList(navController: NavController, feed: List<HomeEntity>, era: HomeViewModel.HomeEra) {
+fun HomeList(navController: NavController, feed: List<HomeSegment>, era: HomeViewModel.HomeEras) {
 	LazyColumn(Modifier.fillMaxWidth()) {
-		loadingItem(era is HomeViewModel.HomeEra.Loading)
+		loadingItem(era is HomeViewModel.HomeEras.Loading)
 		items(feed) { HomeSegment(it, navController) }
-		errorItem(if ((era is HomeViewModel.HomeEra.Failure)) era.throwable else null)
+		errorItem(if ((era is HomeViewModel.HomeEras.Failure)) era.throwable else null)
 	}
 }

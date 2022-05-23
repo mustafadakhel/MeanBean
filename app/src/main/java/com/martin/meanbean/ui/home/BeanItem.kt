@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,11 +17,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.martin.meanbean.domain.entities.HomeSubEntity
+import com.martin.meanbean.domain.models.HomeSubSegment
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun BeanItem(homeBean: HomeSubEntity, click: (HomeSubEntity) -> Unit) {
+fun BeanItem(homeBean: HomeSubSegment, click: (HomeSubSegment) -> Unit) {
 	Card(
 		modifier = Modifier
 				.padding(start = 4.dp, end = 4.dp)
@@ -48,8 +47,8 @@ fun BeanItem(homeBean: HomeSubEntity, click: (HomeSubEntity) -> Unit) {
 }
 
 fun LazyListScope.beanItems(
-	homeBeans: List<HomeSubEntity>,
-	onItemClicked: (HomeSubEntity) -> Unit
+	homeBeans: List<HomeSubSegment>,
+	onItemClicked: (HomeSubSegment) -> Unit
 ) {
 	items(homeBeans) { BeanItem(homeBean = it, click = onItemClicked) }
 }

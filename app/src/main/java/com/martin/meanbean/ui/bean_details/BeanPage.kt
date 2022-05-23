@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
-import com.martin.meanbean.domain.entities.BeanEntity
+import com.martin.meanbean.domain.models.Bean
 import com.martin.meanbean.ui.common.Error
 import com.martin.meanbean.ui.common.Loading
 
@@ -30,14 +30,14 @@ fun BeanPage(beanId: Int?, viewModel: BeanPageViewModel = hiltViewModel()) {
 	val bean by viewModel.beanFlow.collectAsState()
 	val era by viewModel.beanTimeMachine.flowEras().collectAsState()
 	when (era) {
-		BeanPageViewModel.BeanPageEra.Loading -> Loading()
-		BeanPageViewModel.BeanPageEra.Loaded -> BeanDetails(bean = bean!!)
-		is BeanPageViewModel.BeanPageEra.Failure -> Error(throwable = (era as BeanPageViewModel.BeanPageEra.Failure).throwable)
+		BeanPageViewModel.BeanPageEras.Loading -> Loading()
+		BeanPageViewModel.BeanPageEras.Loaded -> BeanDetails(bean = bean!!)
+		is BeanPageViewModel.BeanPageEras.Failure -> Error(throwable = (era as BeanPageViewModel.BeanPageEras.Failure).throwable)
 	}
 }
 
 @Composable
-fun BeanDetails(bean: BeanEntity) {
+fun BeanDetails(bean: Bean) {
 	Column(
 		Modifier
 				.fillMaxSize()

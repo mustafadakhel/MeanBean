@@ -2,12 +2,12 @@ package com.martin.meanbean.ui.home
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.martin.meanbean.domain.entities.HomeEntity
+import com.martin.meanbean.domain.models.HomeSegment
 import com.martin.meanbean.utils.NavigationActions
 
 @Composable
-fun HomeSegment(data: HomeEntity, navController: NavController) {
-	if (data.type is HomeEntity.HomeEntityType.Beans)
+fun HomeSegment(data: HomeSegment, navController: NavController) {
+	if (data.type is HomeSegment.HomeSegmentType.Beans)
 		Beans(data, beanItemClicked = {
 			navController.navigate(
 				NavigationActions.HomePage.homeToBeanPage(
@@ -16,6 +16,6 @@ fun HomeSegment(data: HomeEntity, navController: NavController) {
 				).destination
 			)
 		})
-	else if (data.type is HomeEntity.HomeEntityType.Drinks)
+	else if (data.type is HomeSegment.HomeSegmentType.Drinks)
 		Drinks(data)
 }

@@ -8,11 +8,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.martin.meanbean.domain.entities.HomeEntity
-import com.martin.meanbean.domain.entities.HomeSubEntity
+import com.martin.meanbean.domain.models.HomeSegment
+import com.martin.meanbean.domain.models.HomeSubSegment
 
 @Composable
-fun Beans(homeBeans: HomeEntity, beanItemClicked: (HomeSubEntity) -> Unit) {
+fun Beans(homeBeans: HomeSegment, beanItemClicked: (HomeSubSegment) -> Unit) {
 	Column(Modifier.padding(16.dp)) {
 		Text(
 			text = homeBeans.title,

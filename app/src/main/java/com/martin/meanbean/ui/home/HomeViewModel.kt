@@ -2,7 +2,8 @@ package com.martin.meanbean.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.martin.meanbean.domain.entities.HomeEntity
+import com.martin.meanbean.domain.models.HomeSegment
+import com.martin.meanbean.domain.models.toHomeSegments
 import com.martin.meanbean.domain.use_cases.GetHomeFeedUseCase
 import com.martin.meanbean.utils.ControllableTimeMachine
 import com.martin.meanbean.utils.TimeMachine
@@ -18,17 +19,17 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
 	private val getHomeFeedUseCase: GetHomeFeedUseCase,
 ) : ViewModel() {
-	sealed interface HomeEra : TimeMachine.Era {
-		object Loading : HomeEra
-		object Loaded : HomeEra
-		data class Failure(val throwable: Throwable) : HomeEra
+	sealed interface HomeEras : TimeMachine.Eras {
+		object Loading : HomeEras
+		object Loaded : HomeEras
+		data class Failure(val throwable: Throwable) : HomeEras
 	}
 
-	private val _homeTimeMachine: ControllableTimeMachine<HomeEra> =
-		controllableTimeMachine(HomeEra.Loading)
-	val homeTimeMachine: TimeMachine<HomeEra> = _homeTimeMachine.asTimeMachine()
-	private val _homeListFlow = MutableStateFlow<List<HomeEntity>>(listOf())
-	val homeListFlow = _homeListFlow.asStateFlow()
+	private val _homeTimeMachine: ControllableTimeMachine<HomeEras> =
+		controllableTimeMachine(HomeEras.Loading)
+	val homeTimeMachine: TimeMachine<HomeEras> = _homeTimeMachine.asTimeMachine()
+	private val _homeSegmentListFlow = MutableStateFlow<List<HomeSegment>>(listOf())
+	val homeListFlow = _homeSegmentListFlow.asStateFlow()
 
 	init {
 		fetch()
@@ -36,16 +37,15 @@ class HomeViewModel @Inject constructor(
 
 	fun fetch() = viewModelScope.launch {
 		runCatching {
-			_homeTimeMachine.newDestination(HomeEra.Loading)
-			getHomeFeedUseCase().also {
-				_homeListFlow.emit(it)
+			_homeTimeMachine.newDestination(HomeEras.Loading)
+			getHomeFeedUseCase().toHomeSegments().also {
+				_homeSegmentListFlow.emit(it)
 			}
 		}.onSuccess {
-			_homeTimeMachine.newDestination(HomeEra.Loaded)
+			_homeTimeMachine.newDestination(HomeEras.Loaded)
 		}.onFailure {
-			_homeTimeMachine.newDestination(HomeEra.Failure(it))
+			_homeTimeMachine.newDestination(HomeEras.Failure(it))
 		}
 	}
 }
-
 

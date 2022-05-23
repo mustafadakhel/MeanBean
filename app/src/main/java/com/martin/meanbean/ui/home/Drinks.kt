@@ -9,16 +9,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.martin.meanbean.domain.entities.HomeEntity
+import com.martin.meanbean.domain.models.HomeSegment
 
 @Composable
-fun Drinks(homeEntity: HomeEntity) {
-	val rowCount = (homeEntity.items.size / 3f).toInt()
+fun Drinks(homeSegment: HomeSegment) {
+	val rowCount = (homeSegment.items.size / 3f).toInt()
 	BoxWithConstraints(modifier = Modifier.padding(16.dp)) {
 		val width = maxWidth
 		Column {
 			Text(
-				text = homeEntity.title,
+				text = homeSegment.title,
 				modifier = Modifier.padding(bottom = 4.dp),
 				style = MaterialTheme.typography.h6
 			)
@@ -26,7 +26,7 @@ fun Drinks(homeEntity: HomeEntity) {
 				LazyRow {
 					for (j: Int in i + ((3 - 1) * i) until (i + ((3 - 1) * i) + 3))
 						item {
-							DrinkItem(homeDrink = homeEntity.items[j], width / 3)
+							DrinkItem(homeDrink = homeSegment.items[j], width / 3)
 						}
 				}
 		}

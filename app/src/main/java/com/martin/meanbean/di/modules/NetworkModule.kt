@@ -1,7 +1,8 @@
 package com.martin.meanbean.di.modules
 
 import com.martin.meanbean.BuildConfig
-import com.martin.meanbean.data.remote.network.MeanBeanApi
+import com.martin.meanbean.data.sources.implementation.remote.retrofit.MeanBeanApi
+import com.martin.meanbean.di.qualifiers.MeanBeanRetrofit
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,11 +17,17 @@ object NetworkModule {
 
 	@Provides
 	@Singleton
-	fun provideMeanBeanApi(): MeanBeanApi {
+	@MeanBeanRetrofit
+	fun provideMeanBeanRetrofit(): Retrofit {
 		return Retrofit.Builder()
 				.baseUrl(BuildConfig.COFFEE_API)
 				.addConverterFactory(GsonConverterFactory.create())
 				.build()
-				.create(MeanBeanApi::class.java)
+	}
+
+	@Provides
+	@Singleton
+	fun provideMeanBeanApi(@MeanBeanRetrofit retrofit: Retrofit): MeanBeanApi {
+		return retrofit.create(MeanBeanApi::class.java)
 	}
 }

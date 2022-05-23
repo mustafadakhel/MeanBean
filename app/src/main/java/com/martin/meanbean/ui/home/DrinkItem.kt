@@ -16,11 +16,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.martin.meanbean.domain.entities.HomeSubEntity
+import com.martin.meanbean.domain.models.HomeSubSegment
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun DrinkItem(homeDrink: HomeSubEntity, width: Dp) {
+fun DrinkItem(homeDrink: HomeSubSegment, width: Dp) {
 	Card(
 		modifier = Modifier
 				.width(width)
