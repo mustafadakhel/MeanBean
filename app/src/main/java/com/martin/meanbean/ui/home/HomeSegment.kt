@@ -17,5 +17,12 @@ fun HomeSegment(data: HomeSegment, navController: NavController) {
 			)
 		})
 	else if (data.type is HomeSegment.HomeSegmentType.Drinks)
-		Drinks(data)
+		Drinks(data) {
+			navController.navigate(
+				NavigationActions.HomePage.homeToDrinkPage(
+					it.id,
+					it.title
+				).destination
+			)
+		}
 }

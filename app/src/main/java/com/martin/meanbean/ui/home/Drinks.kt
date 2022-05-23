@@ -10,9 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.martin.meanbean.domain.models.HomeSegment
+import com.martin.meanbean.domain.models.HomeSubSegment
 
 @Composable
-fun Drinks(homeSegment: HomeSegment) {
+fun Drinks(homeSegment: HomeSegment, drinkItemClicked: (HomeSubSegment) -> Unit) {
 	val rowCount = (homeSegment.items.size / 3f).toInt()
 	BoxWithConstraints(modifier = Modifier.padding(16.dp)) {
 		val width = maxWidth
@@ -26,7 +27,10 @@ fun Drinks(homeSegment: HomeSegment) {
 				LazyRow {
 					for (j: Int in i + ((3 - 1) * i) until (i + ((3 - 1) * i) + 3))
 						item {
-							DrinkItem(homeDrink = homeSegment.items[j], width / 3)
+							DrinkItem(
+								homeDrink = homeSegment.items[j],
+								width / 3
+							) { drinkItemClicked(homeSegment.items[j]) }
 						}
 				}
 		}

@@ -14,8 +14,8 @@ class DefaultDrinksRepository @Inject constructor(
 ) : DrinksRepository {
 	override suspend fun getDrinks(): List<Drink> = runCatching {
 		remoteDrinksSource.getDrinks()
-	}.onSuccess {
-		it.forEach { drink -> localDrinksSource.addDrink(drink) }
+	}.onSuccess { drinks ->
+		localDrinksSource.addDrinks(drinks)
 	}.getOrElse {
 		localDrinksSource.getDrinks()
 	}

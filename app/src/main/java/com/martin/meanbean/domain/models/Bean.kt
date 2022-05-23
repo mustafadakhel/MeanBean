@@ -9,21 +9,4 @@ data class Bean(
 	override var name: String = "",
 	override var image: String = "",
 	var description: String = "",
-) : Parcelable, HomeFeedItem {
-	fun toHomeSub(): HomeSubSegment {
-		return HomeSubSegment(
-			id = this.id,
-			title = this.name,
-			image = this.image
-		)
-	}
-}
-
-@JvmName("toHomeBean")
-fun List<Bean>.toHomeSegment(): HomeSegment {
-	return HomeSegment(
-		title = "Beans",
-		items = map { it.toHomeSub() },
-		type = HomeSegment.HomeSegmentType.Beans
-	)
-}
+) : Parcelable, HomeFeedItem

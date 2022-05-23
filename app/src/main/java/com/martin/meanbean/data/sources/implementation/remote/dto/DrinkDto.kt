@@ -1,5 +1,7 @@
 package com.martin.meanbean.data.sources.implementation.remote.dto
 
+import com.martin.meanbean.domain.models.Drink
+
 data class DrinkDto(
 	val id: Int = -1,
 	val name: String = "",
@@ -7,4 +9,13 @@ data class DrinkDto(
 	val image: String = "",
 	val ratio: String = "",
 	val cup: String = "",
+)
+
+fun DrinkDto.toDrink() = Drink(
+	id = id,
+	name = name,
+	image = image,
+	description = desc,
+	ratio = ratio,
+	cup = cup
 )

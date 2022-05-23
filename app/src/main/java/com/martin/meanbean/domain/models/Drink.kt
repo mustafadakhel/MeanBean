@@ -11,21 +11,4 @@ data class Drink(
 	override var image: String = "",
 	var ratio: String = "",
 	var cup: String = "",
-) : Parcelable, HomeFeedItem {
-	fun toHomeSub(): HomeSubSegment {
-		return HomeSubSegment(
-			title = this.name,
-			image = this.image,
-			id = id
-		)
-	}
-}
-
-@JvmName("toHomeDrink")
-fun List<Drink>.toHomeSegment(): HomeSegment {
-	return HomeSegment(
-		title = "Drinks",
-		items = map { it.toHomeSub() },
-		type = HomeSegment.HomeSegmentType.Drinks
-	)
-}
+) : Parcelable, HomeFeedItem

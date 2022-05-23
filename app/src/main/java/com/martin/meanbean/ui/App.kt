@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.martin.meanbean.ui.bean_details.BeanPage
+import com.martin.meanbean.ui.drink_details.DrinkPage
 import com.martin.meanbean.ui.home.HomePage
 import com.martin.meanbean.utils.NavigationDestinations
 import com.martin.meanbean.utils.Navigator
@@ -35,6 +36,19 @@ val BeanIdArg = navArgument(BeanIdArgName) {
 
 val BeanTitleArg = navArgument(BeanTitleArgName) {
 	defaultValue = "Bean"
+	type = NavType.StringType
+}
+
+const val DrinkIdArgName = "beanId"
+const val DrinkTitleArgName = "beanTitle"
+
+val DrinkIdArg = navArgument(DrinkIdArgName) {
+	type = NavType.IntType
+	nullable = false
+}
+
+val DrinkTitleArg = navArgument(DrinkTitleArgName) {
+	defaultValue = "Drink"
 	type = NavType.StringType
 }
 
@@ -65,6 +79,7 @@ fun App(
 		NavHost(navController, NavigationDestinations.homePage) {
 			homePage(navController)
 			beanPage()
+			drinkPage()
 		}
 	}
 }
@@ -83,6 +98,16 @@ private fun NavGraphBuilder.beanPage() {
 	) {
 		label = it.arguments?.getString(BeanTitleArgName)
 		BeanPage(it.arguments?.getInt(BeanIdArgName))
+	}
+}
+
+private fun NavGraphBuilder.drinkPage() {
+	composable(
+		route = NavigationDestinations.drinkPage,
+		arguments = listOf(DrinkIdArg, DrinkTitleArg)
+	) {
+		label = it.arguments?.getString(DrinkTitleArgName)
+		DrinkPage(it.arguments?.getInt(DrinkIdArgName))
 	}
 }
 

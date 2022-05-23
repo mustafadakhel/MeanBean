@@ -1,6 +1,7 @@
 package com.martin.meanbean.ui.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,11 +21,12 @@ import com.martin.meanbean.domain.models.HomeSubSegment
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun DrinkItem(homeDrink: HomeSubSegment, width: Dp) {
+fun DrinkItem(homeDrink: HomeSubSegment, width: Dp, onClicked: () -> Unit) {
 	Card(
 		modifier = Modifier
 				.width(width)
-				.padding(6.dp),
+				.padding(6.dp)
+				.clickable { onClicked() },
 		elevation = 8.dp
 	) {
 		Column {

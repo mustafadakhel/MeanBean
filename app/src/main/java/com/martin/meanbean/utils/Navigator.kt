@@ -4,6 +4,8 @@ import android.os.Parcelable
 import androidx.navigation.NavOptions
 import com.martin.meanbean.ui.BeanIdArgName
 import com.martin.meanbean.ui.BeanTitleArgName
+import com.martin.meanbean.ui.DrinkIdArgName
+import com.martin.meanbean.ui.DrinkTitleArgName
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,6 +33,8 @@ class ComposeNavigator @Inject constructor() : Navigator {
 object NavigationDestinations {
 	const val homePage = "homePage"
 	const val beanPage = "$homePage/beanPage/{$BeanIdArgName}?$BeanTitleArgName={$BeanTitleArgName}"
+	const val drinkPage =
+		"$homePage/drinkPage/{$DrinkIdArgName}?$DrinkTitleArgName={$DrinkTitleArgName}"
 }
 
 interface NavigationAction {
@@ -46,6 +50,15 @@ object NavigationActions {
 		fun homeToBeanPage(beanId: Int, beanTitle: String) = object : NavigationAction {
 			override val destination =
 				"${NavigationDestinations.homePage}/beanPage/$beanId?$BeanTitleArgName=$beanTitle"
+			override val navOptions = NavOptions.Builder()
+					.setPopUpTo(NavigationDestinations.homePage, inclusive = true, saveState = true)
+					.setRestoreState(true)
+					.build()
+		}
+
+		fun homeToDrinkPage(drinkId: Int, drinkTitle: String) = object : NavigationAction {
+			override val destination =
+				"${NavigationDestinations.homePage}/drinkPage/$drinkId?$DrinkTitleArgName=$drinkTitle"
 			override val navOptions = NavOptions.Builder()
 					.setPopUpTo(NavigationDestinations.homePage, inclusive = true, saveState = true)
 					.setRestoreState(true)

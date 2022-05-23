@@ -18,12 +18,16 @@ interface HomeFeedItem {
 }
 
 fun List<HomeFeedList>.toHomeSegments() = map { feed ->
-	val items = feed.items.map { it.toHomeSubSegment() }
-	val type = when (feed.type) {
+	feed.toSegment()
+}
+
+private fun HomeFeedList.toSegment(): HomeSegment {
+	val items = items.map { it.toHomeSubSegment() }
+	val type = when (type) {
 		HomeFeedList.HomeFeedListType.Beans -> HomeSegment.HomeSegmentType.Beans
 		HomeFeedList.HomeFeedListType.Drinks -> HomeSegment.HomeSegmentType.Drinks
 	}
-	HomeSegment(feed.title, items, type)
+	return HomeSegment(title, items, type)
 }
 
 fun HomeFeedItem.toHomeSubSegment() = HomeSubSegment(id, name, image)
