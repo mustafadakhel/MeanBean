@@ -1,14 +1,22 @@
 package com.martin.meanbean.data.sources.implementation.local.db
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.martin.meanbean.data.sources.implementation.local.entities.BeanEntity
 
 @Dao
-interface BeansDao : BaseDao<BeanEntity> {
+interface BeansDao {
 	@Query("SELECT * FROM bean")
 	suspend fun getBeans(): List<BeanEntity>
 
 	@Query("SELECT * FROM bean WHERE id = :id")
 	suspend fun getBean(id: Int): BeanEntity?
+
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	suspend fun insert(item: BeanEntity)
+
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	suspend fun insert(items: List<BeanEntity>)
 }

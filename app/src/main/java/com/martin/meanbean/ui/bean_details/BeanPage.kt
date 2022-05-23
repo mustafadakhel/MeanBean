@@ -28,7 +28,7 @@ fun BeanPage(beanId: Int?, viewModel: BeanPageViewModel = hiltViewModel()) {
 		viewModel.fetch(beanId)
 	})
 	val bean by viewModel.beanFlow.collectAsState()
-	val era by viewModel.beanTimeMachine.flowEras().collectAsState()
+	val era by viewModel.timeMachine.flowEras().collectAsState()
 	when (era) {
 		BeanPageViewModel.Eras.Loading -> Loading()
 		BeanPageViewModel.Eras.Loaded -> BeanDetails(bean = bean!!)
