@@ -3,35 +3,35 @@ package com.martin.meanbean.utils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-private class DefaultTimeMachine<T : TimeMachine.Eras>(initialEvent: T) :
+private class DefaultTimeMachine<T : TimeMachine.Eras>(initialEra: T) :
 	ControllableTimeMachine<T> {
 
-	private var eventsFlow: MutableStateFlow<T>? = null
+	private var erasFlow: MutableStateFlow<T>? = null
 
 	override fun flowEras(): StateFlow<T> {
-		if (eventsFlow == null)
-			eventsFlow = MutableStateFlow(currentEvent)
-		return eventsFlow!!
+		if (erasFlow == null)
+			erasFlow = MutableStateFlow(currentEra)
+		return erasFlow!!
 	}
 
-	override var currentEvent: T = initialEvent
+	override var currentEra: T = initialEra
 		private set
 
-	override suspend fun newDestination(event: T) {
-		currentEvent = event
-		eventsFlow?.emit(currentEvent)
+	override suspend fun newDestination(era: T) {
+		currentEra = era
+		erasFlow?.emit(currentEra)
 	}
 }
 
 interface ControllableTimeMachine<T : TimeMachine.Eras> : TimeMachine<T> {
-	suspend fun newDestination(event: T)
+	suspend fun newDestination(era: T)
 }
 
 interface TimeMachine<T : TimeMachine.Eras> {
 	interface Eras
 
 	fun flowEras(): StateFlow<T>
-	val currentEvent: T
+	val currentEra: T
 }
 
 fun <T : TimeMachine.Eras> controllableTimeMachine(initialEra: T): ControllableTimeMachine<T> =

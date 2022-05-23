@@ -30,9 +30,9 @@ fun BeanPage(beanId: Int?, viewModel: BeanPageViewModel = hiltViewModel()) {
 	val bean by viewModel.beanFlow.collectAsState()
 	val era by viewModel.beanTimeMachine.flowEras().collectAsState()
 	when (era) {
-		BeanPageViewModel.BeanPageEras.Loading -> Loading()
-		BeanPageViewModel.BeanPageEras.Loaded -> BeanDetails(bean = bean!!)
-		is BeanPageViewModel.BeanPageEras.Failure -> Error(throwable = (era as BeanPageViewModel.BeanPageEras.Failure).throwable)
+		BeanPageViewModel.Eras.Loading -> Loading()
+		BeanPageViewModel.Eras.Loaded -> BeanDetails(bean = bean!!)
+		is BeanPageViewModel.Eras.Failure -> Error(throwable = (era as BeanPageViewModel.Eras.Failure).throwable)
 	}
 }
 

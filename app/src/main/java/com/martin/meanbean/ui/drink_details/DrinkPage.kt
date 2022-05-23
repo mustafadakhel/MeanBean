@@ -29,11 +29,11 @@ fun DrinkPage(drinkId: Int?, viewModel: DrinkPageViewModel = hiltViewModel()) {
 		viewModel.fetch(drinkId)
 	})
 	val drink by viewModel.drinkFlow.collectAsState()
-	val era by viewModel.drinkTimeMachine.flowEras().collectAsState()
+	val era by viewModel.timeMachine.flowEras().collectAsState()
 	when (era) {
-		DrinkPageViewModel.DrinkPageEras.Loading -> Loading()
-		DrinkPageViewModel.DrinkPageEras.Loaded -> DrinkDetails(drink = drink!!)
-		is DrinkPageViewModel.DrinkPageEras.Failure -> Error(throwable = (era as DrinkPageViewModel.DrinkPageEras.Failure).throwable)
+		DrinkPageViewModel.Eras.Loading -> Loading()
+		DrinkPageViewModel.Eras.Loaded -> DrinkDetails(drink = drink!!)
+		is DrinkPageViewModel.Eras.Failure -> Error(throwable = (era as DrinkPageViewModel.Eras.Failure).throwable)
 	}
 }
 
