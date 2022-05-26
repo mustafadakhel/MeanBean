@@ -2,9 +2,9 @@ package com.martin.meanbean.di.modules
 
 import android.app.Application
 import androidx.room.Room
-import com.martin.meanbean.data.sources.implementation.local.db.BeansDao
-import com.martin.meanbean.data.sources.implementation.local.db.DrinksDao
-import com.martin.meanbean.data.sources.implementation.local.db.HomeDB
+import com.martin.meanbean.framework.sources.local.db.BeansDao
+import com.martin.meanbean.framework.sources.local.db.DrinksDao
+import com.martin.meanbean.framework.sources.local.db.HomeDB
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

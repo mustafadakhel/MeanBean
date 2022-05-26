@@ -1,4 +1,4 @@
-package com.martin.meanbean.data.sources.implementation.local.entities
+package com.martin.meanbean.framework.sources.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

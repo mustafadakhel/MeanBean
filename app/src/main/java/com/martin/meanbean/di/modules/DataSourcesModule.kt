@@ -1,13 +1,13 @@
 package com.martin.meanbean.di.modules
 
-import com.martin.meanbean.data.sources.contract.BeansSource
-import com.martin.meanbean.data.sources.contract.DrinksSource
-import com.martin.meanbean.data.sources.contract.MutableBeansSource
-import com.martin.meanbean.data.sources.contract.MutableDrinksSource
-import com.martin.meanbean.data.sources.implementation.local.LocalBeansSource
-import com.martin.meanbean.data.sources.implementation.local.LocalDrinksSource
-import com.martin.meanbean.data.sources.implementation.remote.RemoteBeansSource
-import com.martin.meanbean.data.sources.implementation.remote.RemoteDrinksSource
+import com.martin.meanbean.data.sources.BeansSource
+import com.martin.meanbean.data.sources.DrinksSource
+import com.martin.meanbean.data.sources.MutableBeansSource
+import com.martin.meanbean.data.sources.MutableDrinksSource
+import com.martin.meanbean.framework.sources.local.LocalBeansSource
+import com.martin.meanbean.framework.sources.local.LocalDrinksSource
+import com.martin.meanbean.framework.sources.remote.RemoteBeansSource
+import com.martin.meanbean.framework.sources.remote.RemoteDrinksSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

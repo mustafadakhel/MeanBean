@@ -1,4 +1,4 @@
-package com.martin.meanbean.data.sources.implementation.remote.dto
+package com.martin.meanbean.framework.sources.remote.dto
 
 import com.martin.meanbean.domain.models.Bean
 

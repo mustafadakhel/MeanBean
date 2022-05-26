@@ -1,9 +1,9 @@
-package com.martin.meanbean.data.sources.implementation.local
+package com.martin.meanbean.framework.sources.local
 
-import com.martin.meanbean.data.sources.contract.MutableDrinksSource
-import com.martin.meanbean.data.sources.implementation.local.db.DrinksDao
-import com.martin.meanbean.data.sources.implementation.local.entities.toDrink
-import com.martin.meanbean.data.sources.implementation.local.entities.toEntity
+import com.martin.meanbean.data.sources.MutableDrinksSource
+import com.martin.meanbean.framework.sources.local.db.DrinksDao
+import com.martin.meanbean.framework.sources.local.entities.toDrink
+import com.martin.meanbean.framework.sources.local.entities.toEntity
 import com.martin.meanbean.domain.models.Drink
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -1,7 +1,7 @@
 package com.martin.meanbean.data.repository
 
-import com.martin.meanbean.data.sources.contract.BeansSource
-import com.martin.meanbean.data.sources.contract.MutableBeansSource
+import com.martin.meanbean.data.sources.BeansSource
+import com.martin.meanbean.data.sources.MutableBeansSource
 import com.martin.meanbean.domain.models.Bean
 import com.martin.meanbean.domain.repository.BeansRepository
 import javax.inject.Inject

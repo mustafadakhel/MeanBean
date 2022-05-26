@@ -1,7 +1,7 @@
 package com.martin.meanbean.data.repository
 
-import com.martin.meanbean.data.sources.contract.DrinksSource
-import com.martin.meanbean.data.sources.contract.MutableDrinksSource
+import com.martin.meanbean.data.sources.DrinksSource
+import com.martin.meanbean.data.sources.MutableDrinksSource
 import com.martin.meanbean.domain.models.Drink
 import com.martin.meanbean.domain.repository.DrinksRepository
 import javax.inject.Inject

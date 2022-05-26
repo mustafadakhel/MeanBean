@@ -1,3 +1,3 @@
-package com.martin.meanbean.data.sources.implementation.remote.dto
+package com.martin.meanbean.framework.sources.remote.dto
 
 data class DrinksResponseDto(val drinks: List<DrinkDto> = listOf())

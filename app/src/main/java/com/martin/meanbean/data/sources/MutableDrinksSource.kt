@@ -1,4 +1,4 @@
-package com.martin.meanbean.data.sources.contract
+package com.martin.meanbean.data.sources
 
 import com.martin.meanbean.domain.models.Drink
 

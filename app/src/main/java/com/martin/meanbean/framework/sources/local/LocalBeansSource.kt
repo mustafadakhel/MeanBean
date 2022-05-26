@@ -1,9 +1,9 @@
-package com.martin.meanbean.data.sources.implementation.local
+package com.martin.meanbean.framework.sources.local
 
-import com.martin.meanbean.data.sources.contract.MutableBeansSource
-import com.martin.meanbean.data.sources.implementation.local.db.BeansDao
-import com.martin.meanbean.data.sources.implementation.local.entities.BeanEntity
-import com.martin.meanbean.data.sources.implementation.local.entities.toBean
+import com.martin.meanbean.data.sources.MutableBeansSource
+import com.martin.meanbean.framework.sources.local.db.BeansDao
+import com.martin.meanbean.framework.sources.local.entities.BeanEntity
+import com.martin.meanbean.framework.sources.local.entities.toBean
 import com.martin.meanbean.domain.models.Bean
 import javax.inject.Inject
 import javax.inject.Singleton

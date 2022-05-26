@@ -1,8 +1,8 @@
-package com.martin.meanbean.data.sources.implementation.remote
+package com.martin.meanbean.framework.sources.remote
 
-import com.martin.meanbean.data.sources.contract.DrinksSource
-import com.martin.meanbean.data.sources.implementation.remote.dto.toDrink
-import com.martin.meanbean.data.sources.implementation.remote.retrofit.MeanBeanApi
+import com.martin.meanbean.data.sources.DrinksSource
+import com.martin.meanbean.framework.sources.remote.dto.toDrink
+import com.martin.meanbean.framework.sources.remote.retrofit.MeanBeanApi
 import javax.inject.Inject
 import javax.inject.Singleton
 

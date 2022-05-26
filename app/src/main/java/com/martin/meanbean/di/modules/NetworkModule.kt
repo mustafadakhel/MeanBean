@@ -1,7 +1,7 @@
 package com.martin.meanbean.di.modules
 
 import com.martin.meanbean.BuildConfig
-import com.martin.meanbean.data.sources.implementation.remote.retrofit.MeanBeanApi
+import com.martin.meanbean.framework.sources.remote.retrofit.MeanBeanApi
 import com.martin.meanbean.di.qualifiers.MeanBeanRetrofit
 import dagger.Module
 import dagger.Provides
