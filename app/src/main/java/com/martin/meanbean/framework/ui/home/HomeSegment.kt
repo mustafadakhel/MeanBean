@@ -1,9 +1,9 @@
-package com.martin.meanbean.ui.home
+package com.martin.meanbean.framework.ui.home
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.martin.meanbean.domain.models.HomeSegment
-import com.martin.meanbean.utils.NavigationActions
+import com.martin.meanbean.framework.utils.NavigationActions
 
 @Composable
 fun HomeSegment(data: HomeSegment, navController: NavController) {

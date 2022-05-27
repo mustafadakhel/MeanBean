@@ -1,4 +1,4 @@
-package com.martin.meanbean.ui
+package com.martin.meanbean.framework.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -19,12 +19,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.martin.meanbean.ui.bean_details.BeanPage
-import com.martin.meanbean.ui.drink_details.DrinkPage
-import com.martin.meanbean.ui.home.HomePage
-import com.martin.meanbean.utils.NavigationDestinations
-import com.martin.meanbean.utils.Navigator
-import com.martin.meanbean.utils.asLifecycleAwareState
+import com.martin.meanbean.framework.ui.bean_details.BeanPage
+import com.martin.meanbean.framework.ui.drink_details.DrinkPage
+import com.martin.meanbean.framework.ui.home.HomePage
+import com.martin.meanbean.framework.utils.NavigationDestinations
+import com.martin.meanbean.framework.utils.Navigator
+import com.martin.meanbean.framework.utils.asLifecycleAwareState
 
 const val BeanIdArgName = "beanId"
 const val BeanTitleArgName = "beanTitle"

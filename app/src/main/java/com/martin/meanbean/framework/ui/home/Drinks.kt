@@ -1,4 +1,4 @@
-package com.martin.meanbean.ui.home
+package com.martin.meanbean.framework.ui.home
 
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column

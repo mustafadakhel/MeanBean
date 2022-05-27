@@ -1,4 +1,4 @@
-package com.martin.meanbean.ui.home
+package com.martin.meanbean.framework.ui.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

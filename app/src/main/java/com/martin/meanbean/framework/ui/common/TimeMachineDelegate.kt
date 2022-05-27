@@ -1,9 +1,9 @@
-package com.martin.meanbean.ui.common
+package com.martin.meanbean.framework.ui.common
 
-import com.martin.meanbean.utils.ControllableTimeMachine
-import com.martin.meanbean.utils.TimeMachine
-import com.martin.meanbean.utils.asTimeMachine
-import com.martin.meanbean.utils.controllableTimeMachine
+import com.martin.meanbean.framework.utils.ControllableTimeMachine
+import com.martin.meanbean.framework.utils.TimeMachine
+import com.martin.meanbean.framework.utils.asTimeMachine
+import com.martin.meanbean.framework.utils.controllableTimeMachine
 
 interface TimeMachineDelegate<T : TimeMachine.Eras> {
 	val timeMachine: TimeMachine<T>

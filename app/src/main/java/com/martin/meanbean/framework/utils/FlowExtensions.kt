@@ -1,4 +1,4 @@
-package com.martin.meanbean.utils
+package com.martin.meanbean.framework.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State

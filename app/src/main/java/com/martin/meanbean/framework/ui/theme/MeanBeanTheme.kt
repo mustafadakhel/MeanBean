@@ -1,4 +1,4 @@
-package com.martin.meanbean.ui.theme
+package com.martin.meanbean.framework.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*

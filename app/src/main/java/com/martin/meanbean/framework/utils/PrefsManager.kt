@@ -1,8 +1,8 @@
-package com.martin.meanbean.utils
+package com.martin.meanbean.framework.utils
 
 import android.app.Application
 import androidx.preference.PreferenceManager
-import com.martin.meanbean.ui.theme.AppTheme
+import com.martin.meanbean.framework.ui.theme.AppTheme
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -1,11 +1,11 @@
-package com.martin.meanbean.utils
+package com.martin.meanbean.framework.utils
 
 import android.os.Parcelable
 import androidx.navigation.NavOptions
-import com.martin.meanbean.ui.BeanIdArgName
-import com.martin.meanbean.ui.BeanTitleArgName
-import com.martin.meanbean.ui.DrinkIdArgName
-import com.martin.meanbean.ui.DrinkTitleArgName
+import com.martin.meanbean.framework.ui.BeanIdArgName
+import com.martin.meanbean.framework.ui.BeanTitleArgName
+import com.martin.meanbean.framework.ui.DrinkIdArgName
+import com.martin.meanbean.framework.ui.DrinkTitleArgName
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

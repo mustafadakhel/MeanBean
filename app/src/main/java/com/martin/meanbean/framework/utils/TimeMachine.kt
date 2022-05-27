@@ -1,4 +1,4 @@
-package com.martin.meanbean.utils
+package com.martin.meanbean.framework.utils
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

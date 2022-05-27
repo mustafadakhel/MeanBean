@@ -1,4 +1,4 @@
-package com.martin.meanbean.ui.common
+package com.martin.meanbean.framework.ui.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

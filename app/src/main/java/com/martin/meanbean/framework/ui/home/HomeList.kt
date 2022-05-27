@@ -1,4 +1,4 @@
-package com.martin.meanbean.ui.home
+package com.martin.meanbean.framework.ui.home
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.martin.meanbean.domain.models.HomeSegment
-import com.martin.meanbean.ui.common.errorItem
-import com.martin.meanbean.ui.common.loadingItem
+import com.martin.meanbean.framework.ui.common.errorItem
+import com.martin.meanbean.framework.ui.common.loadingItem
 
 @Composable
 fun HomeList(navController: NavController, feed: List<HomeSegment>, era: HomeViewModel.HomeEras) {

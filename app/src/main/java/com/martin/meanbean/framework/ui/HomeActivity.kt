@@ -1,12 +1,12 @@
-package com.martin.meanbean.ui
+package com.martin.meanbean.framework.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.martin.meanbean.ui.theme.AppTheme
-import com.martin.meanbean.ui.theme.MeanBeanTheme
-import com.martin.meanbean.utils.Navigator
-import com.martin.meanbean.utils.PrefsManager
+import com.martin.meanbean.framework.ui.theme.AppTheme
+import com.martin.meanbean.framework.ui.theme.MeanBeanTheme
+import com.martin.meanbean.framework.utils.Navigator
+import com.martin.meanbean.framework.utils.PrefsManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
